@@ -34,8 +34,16 @@ function Register(){
             console.log(response.data);
             alert("User added successfully");
             
-        } catch(error){
-            console.log(error);
+
+            // to show error to user too on frontend if an already regostered email/username is tried to be used in register
+            //to prevent duplicate registration
+        } catch(error){ 
+            if (error.response && error.response.status === 409) {
+                alert("This email or username is already registered. Please use a different one.");
+            } else {
+                console.log(error);
+                alert("Error registering user. Please try again.");
+            }
         }
     }
 
