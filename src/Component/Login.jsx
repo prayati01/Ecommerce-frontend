@@ -1,10 +1,14 @@
 import axios from 'axios';
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import "./Login.css";
+
+
 function Login() {
     
     const [password, setPassword] = useState("");
     const [userId, setUserId] = useState("");
+    const navigate = useNavigate();
     //const [setPassword, setPasswordValue] = useState("");
     //const[userId, setUserIdValue]= useState("");\
     ////React state should be [stateVariable, setterFunction]Here, setPassword should be the password state, not the function.
@@ -40,6 +44,7 @@ function Login() {
             const response = await axios.post("http://localhost:8082/api/loginUser", data);
             if (response.data === true) {
                 alert("Login Successful");
+                navigate('/dashboard');
             }
         } catch (error) {
             //401 Unauthorized, we know the credentials were invalid
@@ -57,9 +62,17 @@ function Login() {
 
     return (
         <>
-            <h1>This is the login page</h1>
+            <h1>VWITS E-commerce</h1>
+            <h2>This is the login page</h2>
             <div className="container">
+
                <form onSubmit={handleSubmit}>
+                <div className='header'>
+                    <div className='text'>Sign Up</div>
+                    <div className='underline'></div>
+                </div>
+                
+                <br/>
                 <label>User Id: </label>
                 <input 
                     type = "email" 
@@ -78,14 +91,27 @@ function Login() {
                     value={password ?? ""} // Ensures password is never undefined
                     onChange={handlePasswordChange}
                 />
-                <br></br>
-                <br></br>
 
+                <div className='forgotPassword'>
+                <Link to="/resetPassword" >
+                    Forgot Password?
+                </Link>
+                </div>
+                
+                <br/>
+
+                <div className='loginButton'>
+                <button type="submit">Login</button>
+                </div>
+                
+                <div className='accountCreation'>
                 <Link to="/register" style={{ color: "blue", textDecoration: "underline", cursor: "pointer" }}>
                     Don't have an account?
                 </Link>
+                </div>
+                
 
-                <button type="submit">Login</button>
+                
                </form>
             </div>
         </>
