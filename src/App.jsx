@@ -55,8 +55,7 @@ function App() {
               <p> No Products</p>
             )
           }
-        
-      </div>
+        </div>
       }/>
 
       {/*other routess*/}
